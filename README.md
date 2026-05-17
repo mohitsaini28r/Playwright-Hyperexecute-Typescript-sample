@@ -54,11 +54,6 @@ set LT_USERNAME="YOUR_USERNAME"
 set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 ```
 
-### Run with Gitpod
-
-Click the button below to open this project in Gitpod. You will be redirected to the login page — sign in with your TestMu AI (Formerly LambdaTest) credentials and the HyperExecute dashboard will open automatically.
-
-[<img alt="Run in Gitpod" width="200px" align="center" src="images/Gitpod.svg" />](https://hyperexecute.lambdatest.com/hyperexecute?type=gitpod&framework=TypeScript&frameworkType=PlayWright)
 
 ## Auto-Split Execution with TypeScript
 
@@ -229,27 +224,6 @@ Steps that need to run after the test execution are listed in the `post` step. I
 
 View results on your TestMu AI dashboard.
 
-## Secrets Management
-
-In case you want to use any secret keys in the YAML file, the same can be set by clicking on the *Secrets* button on the dashboard.
-
-<img width="703" alt="pytest_secrets_key_1" src="https://user-images.githubusercontent.com/1688653/152540968-90e4e8bc-3eb4-4259-856b-5e513cbd19b5.png">
-
-Now create a *secret* key that you can use in the HyperExecute YAML file.
-
-<img width="359" alt="secrets_management_1" src="https://user-images.githubusercontent.com/1688653/153250877-e58445d1-2735-409a-970d-14253991c69e.png">
-
-All you need to do is create an environment variable that uses the secret key:
-
-```yaml
-env:
-  PAT: ${{ .secrets.testKey }}
-```
-
-## License
-
-Licensed under the [MIT license](LICENSE).
-
 ## Contributions
 
 Contributions are welcome. Open an issue to discuss your idea before submitting a pull request. When reporting bugs, include your Node.js version, OS, and Playwright version.
@@ -288,6 +262,10 @@ As software development entered the AI era, testing had to evolve, too. We rebui
 That evolution earned a new name: **TestMu AI**, built for an AI-first future of quality engineering. TestMu is not a new name for us. It is the name of our annual community conference, which has brought together 100,000+ quality engineers to discuss how AI would reshape testing, long before that became an industry norm.
 
 What started as a high-performance cloud testing platform has transformed into an AI-native, multi-agent system powering a connected, end-to-end quality layer. That evolution defined a new identity: LambdaTest evolved into TestMu AI, built for an AI-first future of quality engineering.
+
+## License
+
+Licensed under the [MIT license](LICENSE).
 
 ## Support
 
