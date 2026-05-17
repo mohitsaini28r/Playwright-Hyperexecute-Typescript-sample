@@ -23,9 +23,9 @@ Before using HyperExecute, download the HyperExecute CLI for your OS and export 
 
 Download the HyperExecute CLI binary for your platform:
 
-- **Mac:** https://downloads.testmuai.com/hyperexecute/darwin/hyperexecute
-- **Linux:** https://downloads.testmuai.com/hyperexecute/linux/hyperexecute
-- **Windows:** https://downloads.testmuai.com/hyperexecute/windows/hyperexecute.exe
+- **Mac:** https://downloads.lambdatest.com/hyperexecute/darwin/hyperexecute
+- **Linux:** https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute
+- **Windows:** https://downloads.lambdatest.com/hyperexecute/windows/hyperexecute.exe
 
 It is recommended to download the binary in the project's parent directory.
 
@@ -58,7 +58,7 @@ set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 
 Click the button below to open this project in Gitpod. You will be redirected to the login page — sign in with your TestMu AI (Formerly LambdaTest) credentials and the HyperExecute dashboard will open automatically.
 
-[<img alt="Run in Gitpod" width="200px" align="center" src="images/Gitpod.svg" />](https://hyperexecute.testmuai.com/hyperexecute?type=gitpod&framework=TypeScript&frameworkType=PlayWright)
+[<img alt="Run in Gitpod" width="200px" align="center" src="images/Gitpod.svg" />](https://hyperexecute.lambdatest.com/hyperexecute?type=gitpod&framework=TypeScript&frameworkType=PlayWright)
 
 ## Auto-Split Execution with TypeScript
 
