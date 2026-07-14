@@ -49,39 +49,48 @@ const getErrorMessage = (obj, keys) =>
   );
 
 const test = base.test.extend({
-  page: async ({ page, playwright }, use, testInfo) => {
-    // Configure LambdaTest platform for cross-browser testing
-    let fileName = testInfo.file.split(path.sep).pop();
-    if (testInfo.project.name.match(/lambdatest/)) {
-      modifyCapabilities(
-        testInfo.project.name,
-        `${testInfo.title} - ${fileName}`
+  // Do not depend on the default `page` fixture, or Playwright launches a local browser first.
+  page: async ({}, use, testInfo) => {
+    if (!testInfo.project.name.match(/lambdatest/)) {
+      throw new Error(
+        `Only LambdaTest projects are supported. Got project "${testInfo.project.name}".`
       );
-
-      const browser = await chromium.connect({
-        wsEndpoint: `wss://cdp.lambdatest.com/playwright?capabilities=${encodeURIComponent(
-          JSON.stringify(capabilities)
-        )}`,
-      });
-
-      const ltPage = await browser.newPage(testInfo.project.use);
-      await use(ltPage);
-
-      const testStatus = {
-        action: "setTestStatus",
-        arguments: {
-          status: testInfo.status,
-          remark: getErrorMessage(testInfo, ["error", "message"]),
-        },
-      };
-      await ltPage.evaluate(() => {},
-      `lambdatest_action: ${JSON.stringify(testStatus)}`);
-      await ltPage.close();
-      await browser.close();
-    } else {
-      // Run tests in local in case of local config provided
-      await use(page);
     }
+
+    const fileName = testInfo.file.split(path.sep).pop();
+    modifyCapabilities(
+      testInfo.project.name,
+      `${testInfo.title} - ${fileName}`
+    );
+
+    if (!process.env.LT_USERNAME || !process.env.LT_ACCESS_KEY) {
+      throw new Error(
+        "LT_USERNAME and LT_ACCESS_KEY must be set to run tests on LambdaTest."
+      );
+    }
+
+    const browser = await chromium.connect({
+      wsEndpoint: `wss://cdp.lambdatest.com/playwright?capabilities=${encodeURIComponent(
+        JSON.stringify(capabilities)
+      )}`,
+    });
+
+    const ltPage = await browser.newPage(testInfo.project.use);
+    await use(ltPage);
+
+    const testStatus = {
+      action: "setTestStatus",
+      arguments: {
+        status: testInfo.status,
+        remark: getErrorMessage(testInfo, ["error", "message"]),
+      },
+    };
+    await ltPage.evaluate(
+      () => {},
+      `lambdatest_action: ${JSON.stringify(testStatus)}`
+    );
+    await ltPage.close();
+    await browser.close();
   },
 });
 

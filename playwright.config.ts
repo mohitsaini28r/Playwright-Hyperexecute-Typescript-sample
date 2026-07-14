@@ -1,10 +1,11 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
-// Playwright config to run tests on LambdaTest platform and local
+// Playwright config to run tests on LambdaTest platform
 const config: PlaywrightTestConfig = {
   testDir: "./tests",
   timeout: 60000,
+  reporter: [["html", { open: "never" }]],
   use: {
     viewport: null,
   },
@@ -42,35 +43,6 @@ const config: PlaywrightTestConfig = {
     //   use: {
     //     viewport: { width: 1920, height: 1080 },
     //   },
-    // },
-    // Config for running tests in local
-    // {
-    //   name: "chrome",
-    //   use: {
-    //     browserName: "chromium",
-    //     channel: "chrome",
-    //   },
-    // },
-    // {
-    //   name: "safari",
-    //   use: {
-    //     browserName: "webkit",
-    //     viewport: { width: 1200, height: 750 },
-    //   },
-    // },
-    // {
-    //   name: "firefox",
-    //   use: {
-    //     browserName: "firefox",
-    //     viewport: { width: 800, height: 600 },
-    //   },
-    // },
-    // // Test in mobile viewport.
-    // {
-    //   name: "chrome@pixel5",
-    //   use: {
-    //     ...devices['iPhone 12 Pro Max'],
-    //   }
     // },
   ],
 };

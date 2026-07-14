@@ -6,24 +6,32 @@ testSuiteStep: 90
 runson: win
 autosplit: true
 retryOnFailure: false
-maxRetries: 2
+maxRetries: 1
 concurrency: 3
 
-env:
-  # LT_USERNAME: ${{ .secrets.LT_USERNAME }}
-  # LT_ACCESS_KEY: ${{ .secrets.LT_ACCESS_KEY }}
+# env:
+#   LT_USERNAME: ${{.secrets.user}}
+#   LT_ACCESS_KEY: ${{.secrets.key}}
 
 pre:
-  - yarn add @yarnpkg/core
-  - yarn --version
-  - yarn install
+  - yarn add -D playwright@1.59.0
+  - yarn playwright install chromium firefox webkit
 
 cacheKey: '{{ checksum "yarn.lock" }}'
 cacheDirectories:
   - node_modules
+
 testDiscovery:
   type: raw
-  mode: dynamic
-  command: grep -lr 'test' tests
+  mode: static
+  command: grep -lR --include='*.spec.ts' 'test(' tests
 
-testRunnerCommand: yarn playwright test $test
+testRunnerCommand: yarn playwright test $test --config=./playwright.config.ts --project="chrome:latest:Windows 10@lambdatest"
+
+report: true
+partialReports:
+  frameworkName: playwright
+  location: playwright-report
+  type: html
+
+jobLabel: [playwright-typescript, win, autosplit]

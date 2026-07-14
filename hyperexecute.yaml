@@ -2,13 +2,25 @@
 version: "0.1"
 matrix:
   os: [win]
-  methods: ["tests/test_2.spec.js", "tests/test_1.spec.js"]
+  methods: ["tests/test_1.spec.ts", "tests/test_2.spec.ts", "tests/test_3.spec.ts"]
 runson: ${matrix.os}
+# env:
+#   LT_USERNAME: ${{.secrets.user}}
+#   LT_ACCESS_KEY: ${{.secrets.key}}
 pre:
-  - yarn install
+  - yarn add -D playwright@1.59.0
+  - yarn playwright install chromium firefox webkit
 
 cacheKey: '{{ checksum "yarn.lock" }}'
 cacheDirectories:
   - node_modules
 testSuites:
-  - yarn playwright test --config=./playwright.config.ts
+  - yarn playwright test $methods --config=./playwright.config.ts --project="chrome:latest:Windows 10@lambdatest"
+
+report: true
+partialReports:
+  frameworkName: playwright
+  location: playwright-report
+  type: html
+
+jobLabel: [playwright-typescript, win, matrix]
